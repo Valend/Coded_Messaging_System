@@ -8,10 +8,15 @@
  * 		Daniel Dreise
  *		Ramtin Alikhani
  *
- *  Thursday, November 4, 2018
+ *  Thursday, November 30, 2018
  */
 
+#include "Echo_Input.h"
 #include "Echo_Error.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 //functions
 

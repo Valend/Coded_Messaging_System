@@ -51,6 +51,12 @@
     <ClCompile Include="Echo_Receive_Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VoteOn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_handling.h">
@@ -87,6 +93,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Echo_Message.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VoteOn.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="crc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

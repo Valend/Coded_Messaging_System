@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio_handling.cpp" />
+    <ClCompile Include="crc.c" />
     <ClCompile Include="Echo_Error.cpp" />
     <ClCompile Include="Echo_Frame.cpp" />
     <ClCompile Include="Echo_Input.cpp" />
@@ -127,9 +128,11 @@
     <ClCompile Include="RS232Comm.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="source.cpp" />
+    <ClCompile Include="VoteOn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_handling.h" />
+    <ClInclude Include="crc.h" />
     <ClInclude Include="Echo_Error.h" />
     <ClInclude Include="Echo_Frame.h" />
     <ClInclude Include="Echo_Input.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="Echo_Send_Message.h" />
     <ClInclude Include="RS232Comm.h" />
     <ClInclude Include="sound.h" />
+    <ClInclude Include="VoteOn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

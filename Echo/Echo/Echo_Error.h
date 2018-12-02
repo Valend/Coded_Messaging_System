@@ -14,6 +14,10 @@
 #ifndef ECHO_ERROR_H
 #define ECHO_ERROR_H
 
+
+#define FALSE	0
+#define TRUE	!FALSE
+
 //enum for error codes
 typedef enum ERROR_CODES
 {
