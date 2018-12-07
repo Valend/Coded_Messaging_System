@@ -22,6 +22,8 @@
 #include "Echo_Main.h"
 #include "Echo_Message.h"
 #include "Echo_Phone_Book.h"
+#include "Echo_Compress.h"
+#include "Turcotte_Memory.h"
 #include <stdio.h>
 #include <Windows.h>
 #include <malloc.h>
@@ -43,9 +45,9 @@ int frameMenu(void)
 
 		printf("\nWhat would you like to do?\n"
 			"1 - Send a text message\n"
-			"2 - Send a random quote (NOT IMPLEMENTED)\n"
+			"2 - Send a random quote\n"
 			"3 - Send multiple texts\n"
-			"4 - Receive a text message (NOT IMPLMENTED)\n"
+			"4 - Receive a text message\n"
 			"5 - Receive multiple texts\n"
 			"6 - Print Messages in Queue\n"
 			"7 - Help (NOT IMPLEMENTED)\n"
@@ -111,6 +113,9 @@ int frameSendText(void)
 	int i;
 	
 	Link data;	//holds data to transmit
+	unsigned char* tempOutBuf;	//temp buff for output
+	
+	t_AssignMemory((void**)&tempOutBuf, sizeof(char)*(MAX_QUOTE_LENGTH + 1));
 
 	//allocate space for data
 	data = (Link)calloc(1, sizeof(*data));
@@ -133,8 +138,19 @@ int frameSendText(void)
 	data->data.header.bReceiverAddr = 0xFF;
 	data->data.header.bVersion = 1;
 
+	printf("\nWould you like to compress the message? Will not compress by default.\n"
+		"1 - Yes\n"
+		"2 - No\n");
+
 	//set size of message
 	data->data.header.lDataLength = strlen(data->data.message);
+
+	if (getMenuChoice() == 1)
+	{
+		data->data.header.cSettings[0] = 1;
+		data->data.header.lDataLength = RLEncode((unsigned char*)data->data.message, data->data.header.lDataLength, (unsigned char*)tempOutBuf, 0, ESCAPECHAR);
+		for (i = 0; i < data->data.header.lDataLength + 1; i++) data->data.message[i] = tempOutBuf[i];
+	}
 
 	outputToPort(data, sizeof(*data));	//output to the port
 
@@ -151,6 +167,8 @@ int frameSendText(void)
 	system("PAUSE");
 
 	system("CLS");
+	free(data);
+	free(tempOutBuf);
 	return SUCCESS;
 }
 
@@ -249,6 +267,9 @@ int frameReceiveText(void)
 	int i;	//disposable
 	Link data;
 	tlink item;
+	char* tempInBuf;
+
+	t_AssignMemory((void**)&tempInBuf, sizeof(char) * (MAX_QUOTE_LENGTH+1));
 
 	//allocate space for data
 	data = (Link)calloc(1, sizeof(*data));
@@ -267,6 +288,13 @@ int frameReceiveText(void)
 	//receive the message
 	inputFromPort(data, sizeof(*data));
 
+	//decompress if compressed
+	if (data->data.header.cSettings[0] == 1)
+	{
+		data->data.header.lDataLength = RLDecode((unsigned char*)data->data.message, data->data.header.lDataLength, (unsigned char*)tempInBuf, 0, ESCAPECHAR);
+		for (i = 0; i < data->data.header.lDataLength; i++) data->data.message[i] = tempInBuf[i];
+	}
+
 	printf("\nMessage Received!\n"
 		"MESSAGE DETAILS:\n"
 		"Receiver Address:	0x%x\n"
@@ -284,15 +312,15 @@ int frameReceiveText(void)
 	printf("\nMESSAGE STORED IN QUEUE!\n");
 	printf("\nTHERE ARE %d MESSAGES IN QUEUE\n", countNodes(AccessQueue()));
 
-	//transfer data to ID struct
-	//strcpy((char*)data->data.header.bReceiverAddr, item->item.address);
-	strcpy_s((char*)data->data.header.bReceiverAddr, sizeof(BYTE), item->item.address);
-	//item->item.address = (char*)data->data.header.bReceiverAddr;
-	
-	//store sender ID
-	Insert(item->item);
-	printf("\nSENDER ID STORED IN PHONEBOOK!\n");
-	//BSTPrint(item);
+	////transfer data to ID struct
+	////strcpy((char*)data->data.header.bReceiverAddr, item->item.address);
+	//strcpy_s((char*)data->data.header.bReceiverAddr, sizeof(BYTE), item->item.address);
+	////item->item.address = (char*)data->data.header.bReceiverAddr;
+	//
+	////store sender ID
+	//Insert(item->item);
+	//printf("\nSENDER ID STORED IN PHONEBOOK!\n");
+	////BSTPrint(item);
 	
 	return SUCCESS;
 }

@@ -131,6 +131,7 @@
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="source.cpp" />
     <ClCompile Include="traverse.cpp" />
+    <ClCompile Include="Turcotte_Memory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_handling.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="RS232Comm.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="traverse.h" />
+    <ClInclude Include="Turcotte_Memory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

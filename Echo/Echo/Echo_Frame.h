@@ -49,7 +49,7 @@ typedef struct HEADER
 typedef struct FRAME
 {
 	HEADER header;
-	char message[MAX_QUOTE_LENGTH + 1];
+	char message[140];
 }FRAME;
 
 //prototypes
