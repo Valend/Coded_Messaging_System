@@ -304,23 +304,13 @@ int frameReceiveText(void)
 		"%s"
 		"\n",
 		data->data.header.bReceiverAddr, data->data.header.bVersion, data->data.header.lDataLength, data->data.message);
-
+	
 	//store message in queue
 	if (IsQueueEmpty()) InitQueue();
 
 	EnQueue(data);
 	printf("\nMESSAGE STORED IN QUEUE!\n");
 	printf("\nTHERE ARE %d MESSAGES IN QUEUE\n", countNodes(AccessQueue()));
-
-	////transfer data to ID struct
-	////strcpy((char*)data->data.header.bReceiverAddr, item->item.address);
-	//strcpy_s((char*)data->data.header.bReceiverAddr, sizeof(BYTE), item->item.address);
-	////item->item.address = (char*)data->data.header.bReceiverAddr;
-	//
-	////store sender ID
-	//Insert(item->item);
-	//printf("\nSENDER ID STORED IN PHONEBOOK!\n");
-	////BSTPrint(item);
 	
 	return SUCCESS;
 }
@@ -343,6 +333,20 @@ int frameReceiveMultipleText(void)
 
 	system("PAUSE");
 	system("CLS");
+	return SUCCESS;
+}
+
+//wrapper to record and transmit a frame of audio
+int frameSendAudio(void)
+{
+
+	return SUCCESS;
+}
+
+//wrapper to receive and output a frame of audio
+int frameReceiveAudio(void)
+{
+
 	return SUCCESS;
 }
 

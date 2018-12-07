@@ -52,6 +52,12 @@ typedef struct FRAME
 	char message[140];
 }FRAME;
 
+typedef struct
+{
+	HEADER header;
+
+}AFRAME;
+
 //prototypes
 int frameMenu(void);				//manages frame menu (Echo_Frame.cpp)
 int frameSendText(void);			//wrapper for sending a message with a frame (Echo_Frame.cpp)
@@ -59,6 +65,8 @@ int frameSendQuote(void);			//wrapper for sending quotes (Echo_Frame.cpp)
 int frameSendMultiple(void);		//wrapper for sending multiple texts (Echo_Frame.cpp)
 int frameReceiveText(void);			//wrapper for receiving text (Echo_Frame.cpp)
 int frameReceiveMultipleText(void);	//wrapper for receiving multiple texts (Echo_Frame.cpp)
+int frameSendAudio(void);			//wrapper to record and send audio
+int frameReceiveAudio(void);		//wrapper to receive and output audio
 int framePrintQueue(void);			//wrapper for printing contents of queue (Echo_Frame.cpp)
 
 #endif

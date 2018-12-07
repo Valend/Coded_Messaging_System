@@ -135,7 +135,7 @@ int sendAudio(void)
 
 	//send audio size
 	audioSize = getAudioSize();
-	printf("audio size before compression: %d\n", audioSize);	// TEST
+	//printf("audio size before compression: %d\n", audioSize);	// TEST
 	outputToPort(&audioSize, sizeof(audioSize));
 
 	//receive 'ok' to send audio
@@ -150,8 +150,9 @@ int sendAudio(void)
 		//audioSize = compressAudio((unsigned char*)getAudio(),getAudioSize());
 
 		//transmit audio
-		outputToPort(getCompressedAudio(), audioSize);
-		//outputToPort(getAudio(), getAudioSize());
+		//outputToPort(getCompressedAudio(), audioSize);
+		outputToPort(getAudio(), getAudioSize());
+		printf("\nRecording is doneee0\n");
 		break;
 		
 	case 1:
@@ -160,16 +161,6 @@ int sendAudio(void)
 	}
 
 	system("PAUSE");	//temp
-	return SUCCESS;
-}
-#endif
-
-//#define AUDIO_V2
-#ifdef AUDIO_V2
-int sendAudio(void)
-{
-
-
 	return SUCCESS;
 }
 #endif
